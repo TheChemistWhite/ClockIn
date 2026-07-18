@@ -1,0 +1,44 @@
+*.class
+
+# Gradle
+.gradle/
+build/
+app/build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Local configuration (contains machine-specific SDK path)
+local.properties
+
+# Android Studio / IntelliJ
+.idea/*
+!.idea/codeStyles
+!.idea/runConfigurations
+*.iml
+*.ipr
+*.iws
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Signing keys - never commit these
+*.jks
+*.keystore
+keystore.properties
+
+# Build outputs
+*.apk
+*.aab
+*.ap_
+*.dex
+output.json
+
+# Logs / crash dumps
+*.log
+*.hprof
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
