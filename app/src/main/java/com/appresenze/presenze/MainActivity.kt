@@ -30,14 +30,14 @@ import com.appresenze.presenze.ui.screens.HomeScreen
 import com.appresenze.presenze.ui.screens.NotificheScreen
 import com.appresenze.presenze.ui.screens.RiepilogoScreen
 import com.appresenze.presenze.ui.screens.StoricoScreen
-import com.appresenze.presenze.ui.theme.AppPresenzeTheme
+import com.appresenze.presenze.ui.theme.ClockInTheme
 import com.appresenze.presenze.ui.theme.ScreenBackground
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppPresenzeTheme {
+            ClockInTheme {
                 PresenzeApp()
             }
         }

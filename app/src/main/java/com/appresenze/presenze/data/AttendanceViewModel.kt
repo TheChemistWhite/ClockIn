@@ -299,6 +299,17 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
     val weekStatus: WeekStatus
         get() = weekStatusFor(weekHours(), currentMonday)
 
+    /** Live surplus/deficit of the current week vs. the contract target, e.g. "+1h 30m" or "Mancano 2h 15m". */
+    val weekDeltaLabel: String
+        get() {
+            val diffMinutes = ((weekTotal - contractWeeklyHours) * 60).roundToInt()
+            val absMinutes = kotlin.math.abs(diffMinutes)
+            val h = absMinutes / 60
+            val m = absMinutes % 60
+            val formatted = if (h > 0) "${h}h ${m.toString().padStart(2, '0')}m" else "${m}m"
+            return if (diffMinutes >= 0) "+$formatted rispetto alle ${trimTrailingZero(contractWeeklyHours)}h" else "Mancano $formatted alle ${trimTrailingZero(contractWeeklyHours)}h"
+        }
+
     private val currentMonday: LocalDate
         get() {
             val today = nowDateTime.toLocalDate()
@@ -397,14 +408,26 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
             val lastOut = dayRecords.lastOrNull { it.type == EventType.OUT }
             val entrata = firstIn?.let { TIME_FMT.format(it.dateTime) } ?: "–"
             val uscita = lastOut?.let { TIME_FMT.format(it.dateTime) } ?: "–"
-            val ore = when {
+            val duration = when {
                 firstIn != null && lastOut != null && lastOut.dateTime.isAfter(firstIn.dateTime) ->
-                    formatDayDuration(Duration.between(firstIn.dateTime, lastOut.dateTime))
+                    Duration.between(firstIn.dateTime, lastOut.dateTime)
                 firstIn != null && date == today ->
-                    formatDayDuration(Duration.between(firstIn.dateTime, nowDateTime))
-                else -> "–"
+                    Duration.between(firstIn.dateTime, nowDateTime)
+                else -> null
             }
-            HistoryDay(date = dateLabel, entrata = entrata, uscita = uscita, ore = ore, rawDate = date)
+            val ore = duration?.let { formatDayDuration(it) } ?: "–"
+            val dailyTargetMet = duration != null && duration.toMinutes() / 60.0 >= DAILY_TARGET_HOURS
+            val surplusMinutes = duration?.let { it.toMinutes() - (DAILY_TARGET_HOURS * 60).toLong() } ?: 0L
+            val surplusLabel = if (surplusMinutes > 0) "+${formatDayDuration(Duration.ofMinutes(surplusMinutes))}" else null
+            HistoryDay(
+                date = dateLabel,
+                entrata = entrata,
+                uscita = uscita,
+                ore = ore,
+                rawDate = date,
+                dailyTargetMet = dailyTargetMet,
+                surplusLabel = surplusLabel,
+            )
         }
     }
 

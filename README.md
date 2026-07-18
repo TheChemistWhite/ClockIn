@@ -4,6 +4,8 @@ App Android nativa per la gestione delle presenze in ufficio: timbra ingresso/us
 
 Costruita interamente in **Kotlin** con **Jetpack Compose** e **Material 3**.
 
+> Nota: il nome visualizzato dell'app (icona, launcher, titolo) è **ClockIn**. Il package interno (`com.appresenze.presenze`) è rimasto invariato per non introdurre una migrazione più invasiva — è puramente un dettaglio tecnico, invisibile all'utente finale.
+
 ## Indice
 
 - [Funzionalità](#funzionalità)
@@ -39,11 +41,15 @@ Costruita interamente in **Kotlin** con **Jetpack Compose** e **Material 3**.
 
 ## Screenshot
 
-> Gli screenshot reali dell'app verranno aggiunti in `/screenshots` — vedi [screenshots/README.md](screenshots/README.md) per i nomi file attesi.
+> "Home" è uno screenshot reale del dispositivo. Storico, Riepilogo e Notifiche sono mockup illustrativi (stessi colori/layout del codice reale) in attesa di essere sostituiti con screenshot veri — vedi [screenshots/README.md](screenshots/README.md).
 
-| Home | Storico | Riepilogo |
-|---|---|---|
-| ![Home](screenshots/home.png) | ![Storico](screenshots/storico.png) | ![Riepilogo](screenshots/riepilogo.png) |
+| Home | Storico |
+|---|---|
+| ![Home](screenshots/home.png) | ![Storico](screenshots/storico.png) |
+
+| Riepilogo | Notifiche |
+|---|---|
+| ![Riepilogo](screenshots/riepilogo.png) | ![Notifiche](screenshots/notifiche.png) |
 
 ## Stack tecnico
 

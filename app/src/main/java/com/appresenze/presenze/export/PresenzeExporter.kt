@@ -29,7 +29,7 @@ object PresenzeExporter {
     fun export(context: Context, rows: List<HistoryDay>): Uri? {
         if (rows.isEmpty()) return null
         val bytes = buildWorkbook(rows)
-        val fileName = "Presenze_${FILE_TS_FMT.format(LocalDateTime.now())}.xlsx"
+        val fileName = "ClockIn_${FILE_TS_FMT.format(LocalDateTime.now())}.xlsx"
 
         val resolver = context.contentResolver
         val values = ContentValues().apply {

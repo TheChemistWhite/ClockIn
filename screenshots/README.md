@@ -1,13 +1,6 @@
-# Screenshot placeholder
+# Screenshot
 
-Aggiungi qui gli screenshot reali dell'app una volta installata sul telefono, con questi nomi
-(sono già referenziati nel README principale):
+- `home.png` — screenshot reale, catturato dal dispositivo.
+- `storico.png`, `riepilogo.png`, `notifiche.png` — mockup illustrativi generati a partire dagli stessi colori/layout del codice reale (Color.kt + i Composable delle schermate), non catture dal dispositivo. Servono a mostrare l'aspetto dell'app finché non vengono sostituiti con screenshot veri.
 
-- `home.png` — schermata Home (timbratura, smart working, ferie)
-- `storico.png` — schermata Storico presenze
-- `riepilogo.png` — schermata Riepilogo settimanale
-- `notifiche.png` — schermata Notifiche
-
-Formato consigliato: PNG, ritagliato al solo schermo del telefono (senza cornice), larghezza ~1080px.
-
-Una volta aggiunti i file, questo README di placeholder può essere eliminato.
+Per sostituirli con screenshot reali, installa l'app sul telefono, cattura le schermate Storico, Riepilogo e Notifiche e rimpiazza i rispettivi file con questi nomi (larghezza consigliata ~1080px, ritagliati al solo schermo, senza cornice). Il README principale li referenzia già con questi nomi, quindi basta sovrascriverli.

@@ -14,7 +14,7 @@ private val AppColorScheme = lightColorScheme(
 )
 
 @Composable
-fun AppPresenzeTheme(content: @Composable () -> Unit) {
+fun ClockInTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = AppColorScheme,
         typography = Typography,

@@ -53,13 +53,14 @@ fun RiepilogoScreen(vm: AttendanceViewModel, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 4.dp),
         )
 
+        val (currentBg, currentBorder) = weekStatusColors(vm.weekStatus)
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 20.dp, end = 20.dp, top = 12.dp, bottom = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            val (currentBg, currentBorder) = weekStatusColors(vm.weekStatus)
             StatCard(
                 label = "Totale ore",
                 value = vm.weekTotalLabel,
@@ -69,6 +70,14 @@ fun RiepilogoScreen(vm: AttendanceViewModel, modifier: Modifier = Modifier) {
             )
             StatCard("Media giornaliera", vm.weekAvgLabel, Modifier.weight(1f))
         }
+
+        Text(
+            text = vm.weekDeltaLabel,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = currentBorder,
+            modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 4.dp),
+        )
 
         val weekHistory = vm.weekHistory
 

@@ -42,9 +42,11 @@ import com.appresenze.presenze.data.DayKind
 import com.appresenze.presenze.ui.theme.Accent
 import com.appresenze.presenze.ui.theme.AccentSoftBg
 import com.appresenze.presenze.ui.theme.CardBorder
+import com.appresenze.presenze.ui.theme.ClockedInGreen
 import com.appresenze.presenze.ui.theme.NotifBadgeRed
 import com.appresenze.presenze.ui.theme.SmartWorkingAccent
 import com.appresenze.presenze.ui.theme.SmartWorkingSoftBg
+import com.appresenze.presenze.ui.theme.SuccessSoftBg
 import com.appresenze.presenze.ui.theme.TextPrimary
 import com.appresenze.presenze.ui.theme.TextSecondary50
 import com.appresenze.presenze.ui.theme.VacationAccent
@@ -100,12 +102,12 @@ fun StoricoScreen(vm: AttendanceViewModel, modifier: Modifier = Modifier) {
                         val pillColor = when (day.kind) {
                             DayKind.SMART_WORKING -> SmartWorkingAccent
                             DayKind.VACATION -> VacationAccent
-                            DayKind.NORMAL -> Accent
+                            DayKind.NORMAL -> if (day.dailyTargetMet) ClockedInGreen else Accent
                         }
                         val pillBg = when (day.kind) {
                             DayKind.SMART_WORKING -> SmartWorkingSoftBg
                             DayKind.VACATION -> VacationSoftBg
-                            DayKind.NORMAL -> AccentSoftBg
+                            DayKind.NORMAL -> if (day.dailyTargetMet) SuccessSoftBg else AccentSoftBg
                         }
                         Text(
                             text = day.ore,
@@ -179,34 +181,46 @@ fun StoricoScreen(vm: AttendanceViewModel, modifier: Modifier = Modifier) {
                             }
                         }
                         DayKind.NORMAL -> {
-                            Row(
-                                modifier = Modifier.padding(top = 10.dp),
-                                horizontalArrangement = Arrangement.spacedBy(24.dp),
-                            ) {
-                                Column {
-                                    Text(
-                                        text = "ENTRATA",
-                                        fontSize = 11.sp,
-                                        color = TextSecondary50,
-                                    )
-                                    Text(
-                                        text = day.entrata,
-                                        fontSize = 15.sp,
-                                        color = TextPrimary,
-                                        modifier = Modifier.padding(top = 2.dp),
-                                    )
+                            Column {
+                                Row(
+                                    modifier = Modifier.padding(top = 10.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(24.dp),
+                                ) {
+                                    Column {
+                                        Text(
+                                            text = "ENTRATA",
+                                            fontSize = 11.sp,
+                                            color = TextSecondary50,
+                                        )
+                                        Text(
+                                            text = day.entrata,
+                                            fontSize = 15.sp,
+                                            color = TextPrimary,
+                                            modifier = Modifier.padding(top = 2.dp),
+                                        )
+                                    }
+                                    Column {
+                                        Text(
+                                            text = "USCITA",
+                                            fontSize = 11.sp,
+                                            color = TextSecondary50,
+                                        )
+                                        Text(
+                                            text = day.uscita,
+                                            fontSize = 15.sp,
+                                            color = TextPrimary,
+                                            modifier = Modifier.padding(top = 2.dp),
+                                        )
+                                    }
                                 }
-                                Column {
+                                val surplus = day.surplusLabel
+                                if (surplus != null) {
                                     Text(
-                                        text = "USCITA",
-                                        fontSize = 11.sp,
-                                        color = TextSecondary50,
-                                    )
-                                    Text(
-                                        text = day.uscita,
-                                        fontSize = 15.sp,
-                                        color = TextPrimary,
-                                        modifier = Modifier.padding(top = 2.dp),
+                                        text = "$surplus rispetto alle 8h",
+                                        fontSize = 12.sp,
+                                        fontWeight = FontWeight.SemiBold,
+                                        color = ClockedInGreen,
+                                        modifier = Modifier.padding(top = 8.dp),
                                     )
                                 }
                             }
